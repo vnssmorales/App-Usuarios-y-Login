@@ -1,8 +1,25 @@
+import { useState } from "react";
+
+const initialUserForm = {
+  username: "",
+  password: "",
+  email: "",
+};
 export const UserForm = () => {
 
-   const onInputChange = ({target}) => {
-      console.log(target.value)
-   }
+  const [userForm, setUserForm] = useState(initialUserForm);
+
+  const {username, password, email} = userForm;
+
+  const onInputChange = ({ target }) => {
+    //console.log(target.value);
+
+    const {name, value} = target;
+    setUserForm({
+        ...userForm,
+        [name]: value, //[name] propiedad computada del objeto 
+    })
+  };
 
   return (
     <form>
@@ -10,6 +27,7 @@ export const UserForm = () => {
         className="form-control my-3 w-75"
         placeholder="Username"
         name="username"
+        value={username}
         onChange={onInputChange}
       />
 
@@ -18,6 +36,7 @@ export const UserForm = () => {
         placeholder="Password"
         type="password"
         name="password"
+        value={password}
         onChange={onInputChange}
       />
 
@@ -25,6 +44,7 @@ export const UserForm = () => {
         className="form-control my-3 w-75"
         placeholder="Email"
         name="email"
+        value={email}
         onChange={onInputChange}
       />
 
