@@ -5,7 +5,7 @@ const initialUserForm = {
   password: "",
   email: "",
 };
-export const UserForm = () => {
+export const UserForm = ({handlerAddUser}) => {
 
   const [userForm, setUserForm] = useState(initialUserForm);
 
@@ -21,8 +21,21 @@ export const UserForm = () => {
     })
   };
 
+ const onSubmit = (event) => {
+    event.preventDefault(); 
+    if(!username || !password || !email){
+        alert('Debe completar campos del formulario');
+        return;
+    }  
+   // console.log(userForm);
+     
+    //guardar el userForm en ele listado de usuarios
+    handlerAddUser(userForm); //se envia al padre
+    setUserForm(initialUserForm);
+ }
+
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <input
         className="form-control my-3 w-75"
         placeholder="Username"
