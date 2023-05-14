@@ -5,7 +5,7 @@ const initialLoginForm = {
   username: '',
   password: '',
 }
-export const LoginPage = () => {
+export const LoginPage = ({ handlerLogin }) => {
 
   const [loginForm, setLoginForm] = useState(initialLoginForm);
   const {username, password} = loginForm;
@@ -24,11 +24,8 @@ export const LoginPage = () => {
       Swal.fire('Error de validación', 'Username y password requeridos', 'error');
     }
     //aca se implementa el login
-     if(username === 'admin' && password ==='12345'){
-      //handlerLogin();
-     }else{
-      Swal.fire('Error de login', 'Username y password inválidos', 'error');
-     }
+     handlerLogin({username, password});
+     
      setLoginForm(initialLoginForm);
   }
 
