@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
-export const UserForm = ({ userSelected, handlerAddUser, initialUserForm }) => {
+export const UserForm = ({ userSelected, handlerAddUser, initialUserForm, handlerCloseForm }) => {
   const [userForm, setUserForm] = useState(initialUserForm);
 
   const { id, username, password, email } = userForm;
@@ -25,7 +26,12 @@ export const UserForm = ({ userSelected, handlerAddUser, initialUserForm }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     if (!username || (!password && id === 0) || !email) {
-      alert("Debe completar campos del formulario");
+      Swal.fire(
+        'Error de validación',
+        'Debe completar campos del formulario',
+        'error'
+      );
+
       return;
     }
     // console.log(userForm);
@@ -35,6 +41,11 @@ export const UserForm = ({ userSelected, handlerAddUser, initialUserForm }) => {
     setUserForm(initialUserForm);
   };
 
+
+  const onCloseForm = () => {
+    handlerCloseForm();
+    setUserForm(initialUserForm);
+  }
   return (
     <form onSubmit={onSubmit}>
       <input
@@ -66,6 +77,14 @@ export const UserForm = ({ userSelected, handlerAddUser, initialUserForm }) => {
       <button className="btn btn-primary" type="submit">
         {id > 0? 'Editar' : 'Crear'}
       </button>
+
+      <button 
+           className="btn btn-primary mx-2"
+           type="button"
+           onClick={() => onCloseForm()}>
+           Cerrar
+      </button>
+
     </form>
   );
 };
