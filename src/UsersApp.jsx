@@ -4,7 +4,7 @@ import { UsersPage } from "./pages/UsersPage";
 import { loginReducer } from "./auth/reducers/loginReducer";
 import Swal from "sweetalert2";
 
-const initialLogin = {
+const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
   isAuth: false,
   user: undefined,
 }
@@ -18,6 +18,11 @@ export const UsersApp = () => {
         type: "login",
         payload: user,
       });
+      sessionStorage.setItem('login', JSON.stringify({ //en sesionStorage no se pueden guardar objetos, solo string
+        isAuth: true,
+        user,
+      }));
+
     } else {
       Swal.fire("Error de login", "Username y password inválidos", "error");
     }
