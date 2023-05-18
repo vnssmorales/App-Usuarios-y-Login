@@ -47,6 +47,18 @@ export const UserRoutes = ({ login, handlerLogout }) => {
             />
           }
         />
+
+        <Route
+          path="users/edit/:id"
+          element={
+            <RegisterPage
+              users={users}
+              handlerAddUser={handlerAddUser}
+              initialUserForm={initialUserForm}
+            />
+          }
+        />
+
         <Route path="/" element={<Navigate to="/users" />} />
       </Routes>
     </>
